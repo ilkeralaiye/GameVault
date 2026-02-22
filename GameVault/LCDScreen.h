@@ -1,10 +1,11 @@
-#include "WString.h"
 #ifndef LCDSCREEN_H
 #define LCDSCREEN_H
 
 #define LCDADDRESS 0x27
 #define ROWCOUNT 2
 #define COLUMNCOUNT 16
+
+#include "WString.h"
 
 LiquidCrystal_I2C lcd(LCDADDRESS, COLUMNCOUNT, ROWCOUNT);
 

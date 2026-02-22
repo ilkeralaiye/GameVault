@@ -6,24 +6,16 @@
 void setup() {
   // put your setup code here, to run once:
   setupLCD();
+  setupPlayers();
+  setupReader();
+
   Display("Hello, World!");
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
 
-  char key = keypad.getKey();
-
-  if (key) {
-
-    if (key == '#') {
-      Display("# is Pressed.");
-      delay(2000);
-      lcd.clear();
-    }
-
-  }
-
+  // char key = keypad.getKey();
 
 
 }
