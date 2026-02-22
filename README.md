@@ -5,6 +5,6 @@ We use
 ->I2C LCD 2x16 Screen for giving a simple output to players.
 ->4x4 Keypad for writing input to our vault.
 
-![Schema](./Image/GameVaultImage.png)
+![Schema](./Images/GameVaultImage.png)
 
 1. Libraries: `MFRC522`, `LiquidCrystal_I2C`, `Keypad`
