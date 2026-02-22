@@ -5,7 +5,8 @@
 
 void setup() {
   // put your setup code here, to run once:
-
+  setupLCD();
+  Display("Hello, World!");
 }
 
 void loop() {
