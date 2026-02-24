@@ -55,7 +55,7 @@ void pay() {
 
     from->money += mortgageMoney;    
 
-    if (mortgageMoney < money) {
+    if (from->money < money) {
       char mortgageText[30];
       snprintf(mortgageText, sizeof(mortgageText), "Player %d went bankrupt", from->id);
       displayGivenSec(mortgageText, 1000);
