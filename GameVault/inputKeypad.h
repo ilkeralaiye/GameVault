@@ -1,3 +1,5 @@
+#include <math.h>
+#include "WCharacter.h"
 #ifndef INPUTKEYPAD_H
 #define INPUTKEYPAD_H
 
@@ -12,5 +14,30 @@ char keys[4][4] = {
 };
 
 Keypad keypad = Keypad(makeKeymap(keys), rows, columns, 4, 4);
+
+int moneyInput() {
+
+  Display("Enter the money star is enter");
+  
+  char key;
+  int power = 0;
+  int money = 0;
+  while (power < 4) {
+    
+    key = keypad.getKey();
+    if (isDigit(key)) {
+      key = key - '0';
+      money = (money*10) + key;
+      power++;
+    } else if (key == '*') {
+      break;
+    }
+
+
+  } 
+
+  return money;
+}
+
 
 #endif

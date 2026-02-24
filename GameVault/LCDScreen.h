@@ -44,6 +44,5 @@ void Display(char* text) {
 
 }
 
-
 #endif
 
