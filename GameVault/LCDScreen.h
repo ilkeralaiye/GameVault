@@ -14,9 +14,11 @@ void setupLCD() {
   lcd.backlight();
 }
 
+/*
+Display the given txt at LCD screen
+*/
 void Display(char* text) {
 
-  // Clear the Screen and Set cursor to Row = 0, Column = 0
   lcd.clear();
   lcd.setCursor(0, 0);
 
@@ -43,6 +45,17 @@ void Display(char* text) {
   }
 
 }
+
+/*
+Because of there is so much call of error message, this function
+implemented for displaying message 0.5s and clear the screen.
+*/
+void displayGivenSec(char *txt = "Cannot Read Operation HALTED", int sec=500) {
+  Display(txt);
+  delay(sec);
+  lcd.clear();  
+}
+
 
 #endif
 

@@ -6,39 +6,7 @@
 #include "LCDScreen.h"
 #include "inputKeypad.h"
 
-int enterMoney() {
-
-  Display("Enter the money star is enter");
-  int money = moneyInput();
-  char moneyString[11];
-  
-  snprintf(moneyString, sizeof(moneyString), "Money:%d", money);
-
-  Display(moneyString);
-  delay(1500);
-  lcd.clear();
-
-  return money;
-
-}
-
 // void handleBankruptcy() {}
-
-Player* scanPayOperation(char *txt) {
-  
-  Display(txt);
-  Player *player = scan();
-
-  if (!player) {
-    errorScan();
-    return NULL;
-  }
-
-  Display("Scanned successfully.");
-  delay(1000);
-  lcd.clear();
-  return player;
-}
 
 /*
 KEY PRESSED = '#'
@@ -51,43 +19,38 @@ void showInfo() {
   Player *currentPlayer = scan();
   
   if (!currentPlayer) {
-    errorScan();
+    displayGivenSec(); // base variable is 500 ms
   } else {
 
     char info[24]; 
     snprintf(info, sizeof(info), "Player No:%d Money:%d", currentPlayer->id, currentPlayer->money);
 
-    Display(info);
-
-    delay(2000);
-    lcd.clear();
+    displayGivenSec(info, 1500);
   }
 
 }
 
+/*
+KEY PRESSED = 'A'
+Trade money 
+FROM the first card TO the second card.
+*/
 void pay() {
 
-  Display("PAY: Scan after delay");
-  Player *from = scanPayOperation("Scan FROM who");
+  displayGivenSec("PAY: Scan after delay", 500);
 
-  if (!from) {
-    return;
-  }
+  Player *from = scanPayOperation("Scan FROM who");
+  if (!from) return;
 
   Player *to = scanPayOperation("Scan TO who");
-  
-  if (!to) {
-    return;
-  }
+  if (!to) return;
 
   int money = enterMoney();
 
   if (from->money < money) {
 
-    Display("Insufficient Money.");
-    delay(600);
-    Display("Enter mortgage money.");
-    delay(1000);
+    displayGivenSec("Insufficient Money.", 1000);
+    displayGivenSec("Enter mortgage money.", 1000);
     int mortgageMoney = moneyInput();
 
     from->money += mortgageMoney;    
@@ -95,53 +58,54 @@ void pay() {
     if (mortgageMoney < money) {
       char mortgageText[30];
       snprintf(mortgageText, sizeof(mortgageText), "Player %d went bankrupt", from->id);
-      Display(mortgageText);
-      delay(1000);
+      displayGivenSec(mortgageText, 1000);
       from->isBankruptcy = true;
       to->money += from->money;
       from->money = 0;
     } else {
       to->money += money;
-
       from->money -= money;
     }
 
   } else {
     from->money -= money;
     to->money += money;
-    Display("Payment succedd.");
-    delay(1000);
-      
+    displayGivenSec("payment    succeeded", 1000);      
   }
-  lcd.clear();
   return;
 }
 
+/*
+KEY PRESSED = 'B'
+Trade money 
+FROM the vaut TO the scanned card.
+*/
 void getCash() {
   
+  displayGivenSec("Get cash from vault.");
   int money = enterMoney();
   Player *to = scanPayOperation("Scan TO who");
-
   to->money += money;
-
-
 }
 
+/*
+KEY PRESSED = 'C'
+Trade money 
+FROM the vaut TO the scanned card.
+*/
 void giveCash() {
 
-  int money = enterMoney();
+  displayGivenSec("Pay cash to vault.");
   Player *from = scanPayOperation("Scan who is paying");
+  int money = enterMoney();  
 
   from->money -= money;
 
   if (from->money < 0) {
 
-    Display("Insufficient Money.");
-    delay(600);
-    Display("Enter mortgage money.");
+    displayGivenSec("Insufficient Money.", 800);
+    displayGivenSec("Enter mortgage money.", 1000);
     int mortgageMoney = moneyInput();
-    lcd.clear();
-
 
     from->money += mortgageMoney;    
     delay(200);
@@ -149,27 +113,20 @@ void giveCash() {
     char info[24]; 
     snprintf(info, sizeof(info), "Player No:%d Money:%d", from->id, from->money);
 
-    Display(info);
-
-    delay(2000);
-    lcd.clear();
+    displayGivenSec(info, 2000);
 
     if (from->money < 0) {
-
-      char mortgageText[30];
-      snprintf(mortgageText, sizeof(mortgageText), "Player %d went bankrupt", from->id);
-      Display(mortgageText);
-  
 
       from->isBankruptcy = true;
       from->money = 0;
 
+      char mortgageText[30];      
+      snprintf(mortgageText, sizeof(mortgageText), "Player %d went bankrupt", from->id);
+      displayGivenSec(mortgageText, 1000);
+      
     } else {
-      Display("Payment succedd.");
+      displayGivenSec("payment    succeeded", 1000);
     }
-
-    delay(1000);  
-    lcd.clear();
     
   }
 

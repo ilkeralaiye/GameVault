@@ -30,8 +30,7 @@ int moneyInput() {
     } else if (key == '*') {
       break;
     }
-
-
+    
   } 
 
   return money;
