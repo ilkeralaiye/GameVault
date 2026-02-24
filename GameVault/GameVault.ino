@@ -27,7 +27,13 @@ void loop() {
     }
     case 'A':
       pay();
-    
+      break;
+    case 'B':
+      getCash();
+      break;
+    case 'C':
+      giveCash();
+      break;
   }
       
 }
