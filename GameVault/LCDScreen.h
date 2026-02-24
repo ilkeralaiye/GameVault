@@ -24,7 +24,7 @@ void Display(char* text) {
 
   if (length > 16) {
 
-    int divideIndex;
+    int divideIndex = 16;
     for (int i=0;i<16;i++) {
       
       if (i > 9 && text[i] == ' ') {

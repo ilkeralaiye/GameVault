@@ -51,7 +51,7 @@ void pay() {
     errorScan();
   }
 
-
+  Display("Enter the money star is enter");
   int money = moneyInput();
   char moneyString[11];
   
@@ -66,15 +66,23 @@ void pay() {
     Display("Insufficient Money.");
     delay(600);
     Display("Enter mortgage money.");
-    delay(600);
+    delay(1000);
     int mortgageMoney = moneyInput();
+
+    from->money += mortgageMoney;    
 
     if (mortgageMoney < money) {
       char mortgageText[30];
       snprintf(mortgageText, sizeof(mortgageText), "Player %d went bankrupt", from->id);
+      Display(mortgageText);
+      delay(1000);
       from->isBankruptcy = true;
+      to->money += from->money;
+      from->money = 0;
     } else {
-      from->money = money - from->money + mortgageMoney;
+      to->money += money;
+
+      from->money -= money;
     }
 
   } else {

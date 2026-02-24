@@ -69,7 +69,7 @@ Player* readCard() {
 }
 
 Player* scan() {
-  int initialTime = millis();
+  unsigned long initialTime = millis();
   Player *currentPlayer;
 
   do {

@@ -16,8 +16,6 @@ char keys[4][4] = {
 Keypad keypad = Keypad(makeKeymap(keys), rows, columns, 4, 4);
 
 int moneyInput() {
-
-  Display("Enter the money star is enter");
   
   char key;
   int power = 0;
